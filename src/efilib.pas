@@ -25,15 +25,21 @@ type
 	PChar8			= PChar;
 	PChar16			= PWideChar;
 
-procedure InitializeLib(ImageHandle: TEfiHandle; EfiSystemTable: PEfiSystemTable); cdecl; external 'c' name 'InitializeLib';
+procedure InitializeLib(ImageHandle: TEfiHandle;
+						EfiSystemTable: PEfiSystemTable);
+	cdecl; external 'c' name 'InitializeLib';
 
-procedure InitializeUnicodeSupport(LangCode: PChar8); cdecl; external 'c' name 'InitializeUnicodeSupport';
+procedure InitializeUnicodeSupport(LangCode: PChar8);
+	cdecl; external 'c' name 'InitializeUnicodeSupport';
 
-procedure EFIDebugVariable; cdecl; external 'c' name 'EFIDebugVariable';
+procedure EFIDebugVariable;
+	cdecl; external 'c' name 'EFIDebugVariable';
 
-procedure Exit(ExitStatus: TEfiStatus; ExitDataSize: TUINTN; ExitData: PChar16); cdecl; external 'c' name 'Exit';
+procedure Exit(ExitStatus: TEfiStatus; ExitDataSize: TUINTN; ExitData: PChar16);
+	cdecl; external 'c' name 'Exit';
 
-procedure Print(fmt: PChar16); cdecl; varargs; external 'c' name 'Print';
+procedure Print(fmt: PChar16);
+	cdecl; varargs; external 'c' name 'Print';
 
 implementation
 
