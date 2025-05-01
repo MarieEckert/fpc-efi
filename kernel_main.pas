@@ -3,15 +3,21 @@ unit kernel_main;
 
 interface
 
-procedure Print(fmt: PWideChar); cdecl; varargs; external 'c' name 'Print';
-
-procedure kernel_start; cdecl;
+procedure kernel_start;
 
 implementation
 
-procedure kernel_start; cdecl; [public, alias: 'kernel_start'];
+uses efilib;
+
+procedure efi_main(ImageHandle: TEfiHandle; SystemTable: PEfiSystemTable); cdecl; [public, alias: 'efi_main'];
 begin
-	Print('Test'#13#10);
+	InitializeLib(ImageHandle, SystemTable);
+	kernel_start;
+end;
+
+procedure kernel_start;
+begin
+	Print('Test %s'#13#10, PWideChar('test'));
 end;
 
 end.
