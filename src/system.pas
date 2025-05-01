@@ -30,6 +30,17 @@ type
 	UInt32	= Cardinal;
 	UIntPtr	= PtrUInt;
 	UInt64	= QWord;
+	Char8	= Char;
+	Char16	= WideChar;
+	PChar8	= ^Char8;
+	PChar16	= ^WideChar;
+	PInt8	= ^Int8;
+	PInt16	= ^Int16;
+	PInt32	= ^Int32;
+	PUInt8	= ^UInt8;
+	PUInt16	= ^UInt16;
+	PUInt32	= ^UInt32;
+	PUInt64	= ^UInt64;
 
 	jmp_buf = packed record
 		rbx, rbp, r12, r13, r14, r15, rsp, rip: QWord;

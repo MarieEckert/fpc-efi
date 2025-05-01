@@ -7,11 +7,12 @@ implementation
 
 uses efilib;
 
-procedure efi_main(ImageHandle: TEfiHandle; SystemTable: PEfiSystemTable);
-	cdecl; [public, alias: 'efi_main'];
+function efi_main(ImageHandle: TEfiHandle; SystemTable: PEfiSystemTable):
+	TEfiStatus; cdecl; [public, alias: 'efi_main'];
 begin
 	InitializeLib(ImageHandle, SystemTable);
 	Print('Test %s'#13#10, PWideChar('test'));
+	exit(EFI_SUCCESS);
 end;
 
 end.
