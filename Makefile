@@ -11,8 +11,8 @@ main.efi: main.so
 	objcopy -j .text -j .sdata -j .data -j .rodata -j .dynamic -j .dynsym  -j .rel -j .rela -j .rel.* -j .rela.* -j .reloc --target efi-app-x86_64 --subsystem=10 main.so main.efi
 
 main.so: kernel_main.o
-	$(LD) $(LDFLAGS) kernel_main.o system.o -o main.so -lgnuefi -lefi
+	$(LD) $(LDFLAGS) src/system.o src/kernel_main.o -o main.so -lgnuefi -lefi
 
 .PHONY: kernel_main.o
-kernel_main.o: kernel_main.pas
-	$(PC) kernel_main.pas $(PFLAGS)
+kernel_main.o:
+	$(PC) src/kernel_main.pas $(PFLAGS)
