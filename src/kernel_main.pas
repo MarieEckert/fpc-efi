@@ -7,7 +7,10 @@ implementation
 
 uses elf, efilib;
 
-{ position independent x86_64 elf so relocator }
+{ position independent x86_64 elf so relocator.
+  This is a more or less direct port of the gnuefi elf relocator (reloc_x86_64.c) and
+  designed to be compatible with the gnuefi crt0-efi-x86_64.S entry point.
+}
 function _relocate(
 			ldbase: Int64;
 			dyn: PElf64Dyn;
@@ -40,6 +43,7 @@ begin
 	if (rel = Nil) or (relent = 0) then
 		exit(EFI_LOAD_ERROR);
 
+	{ Apply the relocations }
 	while relsz > 0 do
 	begin
 		case rel^.r_info and $ffffffff of

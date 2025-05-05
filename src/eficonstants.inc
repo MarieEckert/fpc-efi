@@ -3,13 +3,18 @@
 { constant definitions for interfacing with EFI.
   you probably shouldn't include this file directly, you should use the efilib
   unit.
+
+  Built with the UEFI Specifcation Version 2.6.
+
+  Copyright (c) 2025, Marie Eckert
+  Licensed under the BSD 3-Clause License, see:
+    https://github.com/MarieEckert/fpc-efi-test
 }
 
+{$ifndef EFILIB_EFICONSTANTS_INC}
 {$define EFILIB_EFICONSTANTS_INC}
 
-{$ifndef EFILIB_EFITYPES_INC}
 {$include efitypes.inc}
-{$endif}
 
 const
 	{ EFI_STATUS Codes }
@@ -58,3 +63,5 @@ const
 	EFI_WARN_BUFFER_TOO_SMALL	: TEfiStatus = 4;
 	EFI_WARN_STALE_DATA			: TEfiStatus = 5;
 	EFI_WARN_FILE_SYSTEM		: TEfiStatus = 6;
+
+{$endif}

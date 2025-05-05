@@ -1,18 +1,25 @@
 CC = gcc
-CFLAGS = -Ignu-efi/inc -fpic -ffreestanding -fno-stack-protector -fno-stack-check -fshort-wchar -mno-red-zone -maccumulate-outgoing-args
+CFLAGS = -Ignu-efi/inc -fpic -ffreestanding -fno-stack-protector \
+		 -fno-stack-check -fshort-wchar -mno-red-zone -maccumulate-outgoing-args
+
+OBJCOPY = objcopy
+OBJCOPYFLAGS = -j .text -j .sdata -j .data -j .rodata -j .dynamic -j .dynsym \
+			   -j .rel -j .rela -j .rel.* -j .rela.* -j .reloc \
+			   --target efi-app-x86_64 --subsystem=10
 
 LD = ld
-LDFLAGS = -shared -Bsymbolic -Lgnu-efi/x86_64/lib -Lgnu-efi/x86_64/gnuefi -Tgnu-efi/gnuefi/elf_x86_64_efi.lds
+LDFLAGS = -shared -Bsymbolic -Lgnu-efi/x86_64/lib -Lgnu-efi/x86_64/gnuefi \
+		  -Tgnu-efi/gnuefi/elf_x86_64_efi.lds
 
-PC = fpc
+PPC = fpc
 PFLAGS = -Aelf -n -O3 -Op3 -Si -Sc -Sg -Xd -CX -XXs -Px86_64 -Rintel -Tlinux -Cg
 
 main.efi: main.so
-	objcopy -j .text -j .sdata -j .data -j .rodata -j .dynamic -j .dynsym  -j .rel -j .rela -j .rel.* -j .rela.* -j .reloc --target efi-app-x86_64 --subsystem=10 main.so main.efi
+	objcopy $(OBJCOPYFLAGS) main.so main.efi
 
 main.so: kernel_main.o
-	$(LD) $(LDFLAGS) gnu-efi/x86_64/gnuefi/crt0-efi-x86_64.o src/system.o src/kernel_main.o -o main.so
+	$(LD) $(LDFLAGS) gnu-efi/x86_64/gnuefi/crt0-efi-x86_64.o src/*.o -o main.so
 
 .PHONY: kernel_main.o
 kernel_main.o:
-	$(PC) src/kernel_main.pas $(PFLAGS)
+	$(PPC) src/kernel_main.pas $(PFLAGS)

@@ -3,8 +3,15 @@
 { type definitions for interfacing with EFI.
   you probably shouldn't include this file directly, you should use the efilib
   unit.
+
+  Built with the UEFI Specifcation Version 2.6.
+
+  Copyright (c) 2025, Marie Eckert
+  Licensed under the BSD 3-Clause License, see:
+    https://github.com/MarieEckert/fpc-efi-test
 }
 
+{$ifndef EFILIB_EFITYPES_INC}
 {$define EFILIB_EFITYPES_INC}
 
 type
@@ -71,7 +78,7 @@ type
 						   TimerPeriodic,
 						   TiemrRelative);
 
-	{$packrecords c}
+{$packrecords c}
 
 	PEFISimpleTextInputProtocol			= ^TEFISimpleTextInputProtocol;
 	PEFIInputKey						= ^TEFIInputKey;
@@ -670,4 +677,6 @@ type
 		ConfigurationTable	 : PEFIConfigurationTable;
 	end;
 
-	{$packrecords default}
+{$packrecords default}
+
+{$endif}
