@@ -27,7 +27,7 @@ begin
 	while dyn^.d_tag <> DT_NULL do
 	begin
 		case dyn^.d_tag of
-		DT_RELA: rel := PElf64Rel(dyn^.d_ptr + ldbase);
+		DT_RELA: rel := PElf64Rel(UInt64(dyn^.d_ptr) + ldbase);
 		DT_RELASZ: relsz := dyn^.d_val;
 		DT_RELAENT: relent := dyn^.d_val;
 		end;
@@ -59,6 +59,7 @@ end;
 function _entry(ImageHandle: TEfiHandle; SystemTable: PEfiSystemTable):
 	TEfiStatus; cdecl; [public, alias: '_entry'];
 begin
+	SystemTable^.ConOut^.OutputString(SystemTable^.ConOut, 'TESTTESTTEST'#13#10);
 	exit(EFI_SUCCESS);
 end;
 

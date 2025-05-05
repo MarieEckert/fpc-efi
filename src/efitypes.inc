@@ -97,19 +97,19 @@ type
 	TEFIInputReset = function(
 						 This: PEFISimpleTextInputProtocol;
 						 ExtendedVerification: TBoolean
-					 ): TEFIStatus; cdecl;
+					 ): TEFIStatus; MS_ABI_CDecl;
 
 	TEFIInputReadKey = function(
 						   This: PEFISimpleTextInputProtocol;
 						   Key: PEFIInputKey
-					   ): TEFIStatus; cdecl;
+					   ): TEFIStatus; MS_ABI_CDecl;
 
 	TEFITextReset = TEFIInputReset;
 
 	TEFITextString = function(
 						 This: PEFISimpleTextOutputProtocol;
 						 _String: PChar16
-					 ): TEFIStatus; cdecl;
+					 ): TEFIStatus; MS_ABI_CDecl;
 
 	TEFITextTestString = TEFITextString;
 
@@ -118,62 +118,62 @@ type
 							ModeNumber: TUINTN;
 							Columns: PUINTN;
 							Rows: PUINTN):
-						TEFIStatus; cdecl;
+						TEFIStatus; MS_ABI_CDecl;
 
 	TEFITextSetMode = function(
 						  This: PEFISimpleTextOutputProtocol;
 						  ModeNumber: TUINTN
-					  ): TEFIStatus; cdecl;
+					  ): TEFIStatus; MS_ABI_CDecl;
 
 	TEFITextSetAttribute = function(
 							   This: PEFISimpleTextOutputProtocol;
 							   Attribute: TUINTN):
-						   TEFIStatus; cdecl;
+						   TEFIStatus; MS_ABI_CDecl;
 
 	TEFITextClearScreen = function(
 							  This: PEFISimpleTextOutputProtocol
-						  ): TEFIStatus; cdecl;
+						  ): TEFIStatus; MS_ABI_CDecl;
 
 	TEFITextSetCursorPosition = function(
 									This: PEFISimpleTextOutputProtocol;
 									Column: TUINTN;
 									Row: TUINTN
-								): TEFIStatus; cdecl;
+								): TEFIStatus; MS_ABI_CDecl;
 
 	TEFITextEnableCursor = function(
 							   This: PEFISimpleTextOutputProtocol;
 							   Visible: Boolean
-						   ): TEFIStatus; cdecl;
+						   ): TEFIStatus; MS_ABI_CDecl;
 
 	TEFIGetTime = function(
 					  Time: PEFITime;
 					  Capabilities: PEFITimeCapabilities
-				  ): TEFIStatus; cdecl;
+				  ): TEFIStatus; MS_ABI_CDecl;
 
-	TEFISetTime = function(Time: PEFITime): TEFIStatus; cdecl;
+	TEFISetTime = function(Time: PEFITime): TEFIStatus; MS_ABI_CDecl;
 
 	TEFIGetWakeupTime = function(
 							Enabled: PBoolean;
 							Pending: PBoolean;
 							Time: PEFITime
-						): TEFIStatus; cdecl;
+						): TEFIStatus; MS_ABI_CDecl;
 
 	TEFISetWakeupTime = function(
 							Enable: TBoolean;
 							Time: PEFITime
-						): TEFIStatus; cdecl;
+						): TEFIStatus; MS_ABI_CDecl;
 
 	TEFISetVirtualAddressMap = function(
 								   MemoryMapSize: TUINTN;
 								   DescriptorSize: TUINTN;
 								   DescriptorVersion: UInt32;
 								   VirtualMap: PEFIMemoryDescriptor
-							   ): TEFIStatus; cdecl;
+							   ): TEFIStatus; MS_ABI_CDecl;
 
 	TEFIConvertPointer = function(
 							 DebugDesposition: TUINTN;
 							 Address: PPointer
-						 ): TEFIStatus; cdecl;
+						 ): TEFIStatus; MS_ABI_CDecl;
 
 	TEFIGetVariable = function(
 						  VariableName: PChar16;
@@ -181,13 +181,13 @@ type
 						  Attributes: PUInt32;
 						  DataSize: PUINTN;
 						  Data: Pointer
-					  ): TEFIStatus; cdecl;
+					  ): TEFIStatus; MS_ABI_CDecl;
 
 	TEFIGetNextVariableName = function(
 								  VariableNameSize: PUINTN;
 								  VariableName: PChar16;
 								  VendorGuid: PEFIGuid
-							  ): TEFIStatus; cdecl;
+							  ): TEFIStatus; MS_ABI_CDecl;
 
 	TEFISetVariable = function(
 						  VariableName: PChar16;
@@ -195,51 +195,51 @@ type
 						  Attributes: UInt32;
 						  DataSize: TUINTN;
 						  Data: Pointer
-					  ): TEFIStatus; cdecl;
+					  ): TEFIStatus; MS_ABI_CDecl;
 
-	TEFIGetNextHighMonoCount = function(HighCount: PUInt32): TEFIStatus; cdecl;
+	TEFIGetNextHighMonoCount = function(HighCount: PUInt32): TEFIStatus; MS_ABI_CDecl;
 
 	TEFIResetSystem = function(
 						 ResetType: TEFIResetType;
 						 ResetStatus: TEFIStatus; DataSize: TUINTN;
 						 ResetData: PChar16
-					  ): TEFIStatus; cdecl;
+					  ): TEFIStatus; MS_ABI_CDecl;
 
 	TEFIUpdateCapsule = function(
 							CapsuleHeaderArray: PPEFICapsuleHeader;
 							CapsuleCount: TUINTN;
 							ScatterGatherList: TEFIPhysicalAddress
-						): TEFIStatus; cdecl;
+						): TEFIStatus; MS_ABI_CDecl;
 
 	TEFIQueryCapsuleCapabilities = function(
 									   CapsuleHeaderArray: PPEFICapsuleHeader;
 									   CapsuleCount: TUINTN;
 									   MaximumCapsuleSize: PUInt64;
 									   ResetType: PEFIResetType
-								   ): TEFIStatus; cdecl;
+								   ): TEFIStatus; MS_ABI_CDecl;
 
 	TEFIQueryVariableInfo = function(
 								Attributes: UInt32;
 								MaximumVariableStorageSize: PUInt64;
 								RemainingVariableStorageSize: PUInt64;
 								MaximumVariableSize: PUInt64
-							): TEFIStatus; cdecl;
+							): TEFIStatus; MS_ABI_CDecl;
 
-	TEFIRaiseTPL = function(NewTpl: TEFITPL): TEFITPL; cdecl;
+	TEFIRaiseTPL = function(NewTpl: TEFITPL): TEFITPL; MS_ABI_CDecl;
 
-	TEFIRestoreTPL = procedure(OldTpl: TEFITPL); cdecl;
+	TEFIRestoreTPL = procedure(OldTpl: TEFITPL); MS_ABI_CDecl;
 
 	TEFIAllocatePages = function(
 							_Type: TEFIAllocateType;
 							MemoryType: TEFIMemoryType;
 							Pages: TUINTN;
 							Memory: PEFIPhysicalAddress
-						): TEFIStatus; cdecl;
+						): TEFIStatus; MS_ABI_CDecl;
 
 	TEFIFreePages = function(
 						Memory: PEFIPhysicalAddress;
 						Pages: TUINTN
-					): TEFIStatus; cdecl;
+					): TEFIStatus; MS_ABI_CDecl;
 
 	TEFIGetMemoryMap = function(
 						   MemoryMapSize: PUINTN;
@@ -247,77 +247,77 @@ type
 						   MapKey: PUINTN;
 						   DescriptorSize: PUINTN;
 						   DescriptorVersion: PUInt32
-					   ): TEFIStatus; cdecl;
+					   ): TEFIStatus; MS_ABI_CDecl;
 
 	TEFIAllocatePool = function(
 						   PoolType: TEFIMemoryType;
 						   Size: TUINTN;
 						   Buffer: PPointer
-					   ): TEFIStatus; cdecl;
+					   ): TEFIStatus; MS_ABI_CDecl;
 
-	TEFIFreePool = function(Buffer: Pointer): TEFIStatus; cdecl;
+	TEFIFreePool = function(Buffer: Pointer): TEFIStatus; MS_ABI_CDecl;
 
 	TEFIEventNotify = procedure(
 						  Event: TEFIEvent;
 						  Context: Pointer
-					  ); cdecl;
+					  ); MS_ABI_CDecl;
 
 	TEFICreateEvent = function(
 						  _Type: UInt32;
 						  NotifyTpl: TEFITPL;
 						  NotifyFunction: TEFIEventNotify;
 						  Event: PEFIEvent
-					  ): TEFIStatus; cdecl;
+					  ): TEFIStatus; MS_ABI_CDecl;
 
 	TEFISetTimer = function(
 					   Event: TEFIEvent;
 					   _Type: TEFITimerDelay;
 					   TriggerTime: UInt64
-				   ): TEFIStatus; cdecl;
+				   ): TEFIStatus; MS_ABI_CDecl;
 
 	TEFIWaitForEvent = function(
 						   NumberOfEvents: TUINTN;
 						   Event: PEFIEvent;
 						   Index: PUINTN
-					   ): TEFIStatus; cdecl;
+					   ): TEFIStatus; MS_ABI_CDecl;
 
-	TEFISignalEvent = function(Event: TEFIEvent): TEFIStatus; cdecl;
+	TEFISignalEvent = function(Event: TEFIEvent): TEFIStatus; MS_ABI_CDecl;
 
-	TEFICloseEvent = function(Event: TEFIEvent): TEFIStatus; cdecl;
+	TEFICloseEvent = function(Event: TEFIEvent): TEFIStatus; MS_ABI_CDecl;
 
-	TEFICheckEvent = function(Event: TEFIEvent): TEFIStatus; cdecl;
+	TEFICheckEvent = function(Event: TEFIEvent): TEFIStatus; MS_ABI_CDecl;
 
 	TEFIInstallProtocolInterface = function(
 									   Handle: TEFIHandle;
 									   Protocol: PEFIGuid;
 									   InterfaceType: TEFIInterfaceType;
 									   _Interface: Pointer
-								   ): TEFIStatus; cdecl;
+								   ): TEFIStatus; MS_ABI_CDecl;
 
 	TEFIReinstallProtocolInterface = function(
 										 Handle: TEFIHandle;
 										 Protocol: PEFIGuid;
 										 OldInterface: Pointer;
 										 NewInterface: Pointer
-									 ): TEFIStatus; cdecl;
+									 ): TEFIStatus; MS_ABI_CDecl;
 
 	TEFIUninstallProtocolInterface = function(
 										 Handle: TEFIHandle;
 										 Protocol: PEFIGuid;
 										 _Interface: Pointer
-									 ): TEFIStatus; cdecl;
+									 ): TEFIStatus; MS_ABI_CDecl;
 
 	TEFIHandleProtocol = function(
 							 Handle: TEFIHandle;
 							 Protocol: PEFIGuid;
 							 _Interface: PPointer
-						 ): TEFIStatus; cdecl;
+						 ): TEFIStatus; MS_ABI_CDecl;
 
 	TEFIRegisterProtocolNotify = function(
 									 Protocol: PEFIGuid;
 									 Event: TEFIEvent;
 									 Registration: PPointer
-						 ): TEFIStatus; cdecl;
+						 ): TEFIStatus; MS_ABI_CDecl;
 
 	TEFILocateHandle = function(
 						   SearchType: TEFILocateSearchType;
@@ -325,18 +325,18 @@ type
 						   SearchKey: Pointer;
 						   BufferSize: PUINTN;
 						   Buffer: PEFIHandle
-					   ): TEFIStatus; cdecl;
+					   ): TEFIStatus; MS_ABI_CDecl;
 
 	TEFILocateDevicePath = function(
 							   Protocol: PEFIGuid;
 							   DevicePath: PPEFIDevicePathProtocol;
 							   Device: PEFIHandle
-						   ): TEFIStatus; cdecl;
+						   ): TEFIStatus; MS_ABI_CDecl;
 
 	TEFIInstallConfigurationTable = function(
 										Guid: PEFIGuid;
 										Table: Pointer
-									): TEFIstatus; cdecl;
+									): TEFIstatus; MS_ABI_CDecl;
 
 	TEFIImageLoad = function(
 						BootPolicy: TBoolean;
@@ -345,51 +345,51 @@ type
 						SourceBuffer: Pointer;
 						SourceSize: TUINTN;
 						ImageHandle: PEFIHandle
-					): TEFIStatus; cdecl;
+					): TEFIStatus; MS_ABI_CDecl;
 
 	TEFIImageStart = function(
 						 ImageHandle: TEFIHandle;
 						 ExitDataSize: PUINTN;
 						 ExitData: PPChar16
-					 ): TEFIStatus; cdecl;
+					 ): TEFIStatus; MS_ABI_CDecl;
 
 	TEFIExit = function(
 				   ImageHandle: TEFIHandle;
 				   ExitStatus: TEFIStatus;
 				   ExitDataSize: TUINTN;
 				   ExitData: PChar16
-			   ): TEFIStatus; cdecl;
+			   ): TEFIStatus; MS_ABI_CDecl;
 
-	TEFIImageUnload = function(ImageHandle: TEFIHandle): TEFIStatus; cdecl;
+	TEFIImageUnload = function(ImageHandle: TEFIHandle): TEFIStatus; MS_ABI_CDecl;
 
 	TEFIExitBootServices = function(
 							   ImageHandle: TEFIHandle;
 							   MapKey: TUINTN
-						   ): TEFIStatus; cdecl;
+						   ): TEFIStatus; MS_ABI_CDecl;
 
-	TEFIGetNextMonotonicCount = function(Count: PUInt64): TEFIStatus; cdecl;
+	TEFIGetNextMonotonicCount = function(Count: PUInt64): TEFIStatus; MS_ABI_CDecl;
 
-	TEFIStall = function(Microseconds: TUINTN): TEFIStatus; cdecl;
+	TEFIStall = function(Microseconds: TUINTN): TEFIStatus; MS_ABI_CDecl;
 
 	TEFISetWatchdogTimer = function(
 							   Timeout: TUINTN;
 							   WatchdogCode: UInt64;
 							   DataSize: TUINTN;
 							   WatchdogData: PChar16
-						   ): TEFIStatus; cdecl;
+						   ): TEFIStatus; MS_ABI_CDecl;
 
 	TEFIConnectController = function(
 								ControllerHandle: TEFIHandle;
 								DriverImageHandle: PEFIHandle;
 								RemainingDevicePath: PEFIDevicePathProtocol;
 								Recursive: TBoolean
-							): TEFIStatus; cdecl;
+							): TEFIStatus; MS_ABI_CDecl;
 
 	TEFIDisconnectController = function(
 								   ControllerHandle:  TEFIHandle;
 								   DriverImageHandle: TEFIHandle;
 								   ChildHandle: TEFIHandle
-							   ): TEFIStatus; cdecl;
+							   ): TEFIStatus; MS_ABI_CDecl;
 
 	TEFIOpenProtocol = function(
 						   Handle: TEFIHandle;
@@ -398,14 +398,14 @@ type
 						   AgentHandle: TEFIHandle;
 						   ControllerHandle: TEFIHandle;
 						   Attributes: UInt32
-					   ): TEFIStatus; cdecl;
+					   ): TEFIStatus; MS_ABI_CDecl;
 
 	TEFICloseProtocol = function(
 						   Handle: TEFIHandle;
 						   Protocol: PEFIGuid;
 						   AgentHandle: TEFIHandle;
 						   ControllerHandle: TEFIHandle
-					   ): TEFIStatus; cdecl;
+					   ): TEFIStatus; MS_ABI_CDecl;
 
 	TEFIOpenProtocolInformation = function(
 									  Handle: TEFIHandle;
@@ -413,13 +413,13 @@ type
 									  EntryBuffer:
 										PPEFIOpenProtocolInformationEntry;
 									  EntryCount: PUINTN
-								  ): TEFIStatus; cdecl;
+								  ): TEFIStatus; MS_ABI_CDecl;
 
 	TEFIProtocolsPerHandle = function(
 								 Handle: TEFIHandle;
 								 ProtocolBuffer: PPPEFIGuid;
 								 ProtocolBufferCount: PUINTN
-							 ): TEFIStatus; cdecl;
+							 ): TEFIStatus; MS_ABI_CDecl;
 
 	TEFILocateHandleBuffer = function(
 								 SearchType: TEFILocateSearchType;
@@ -427,39 +427,39 @@ type
 								 SearchKey: Pointer;
 								 NoHandles: PUINTN;
 								 Buffer: PPEFIHandle
-							 ): TEFIStatus; cdecl;
+							 ): TEFIStatus; MS_ABI_CDecl;
 
 	TEFILocateProtocol = function(
 							 Protocol: PEFIGuid;
 							 Registration: Pointer;
 							 _Interface: PPointer
-						 ): TEFIStatus; cdecl;
+						 ): TEFIStatus; MS_ABI_CDecl;
 
 	TEFIInstallMultipleProtocolInterfaces = function(
 												Handle: PEFIHandle
-											): TEFIStatus; cdecl; varargs;
+											): TEFIStatus; MS_ABI_CDecl; varargs;
 
 	TEFIUninstallMultipleProtocolInterfaces = function(
 												  Handle: TEFIHandle
-											  ): TEFIStatus; cdecl; varargs;
+											  ): TEFIStatus; MS_ABI_CDecl; varargs;
 
 	TEFICalculateCrc32 = function(
 							 Data: Pointer;
 							 DataSize: PUINTN;
 							 Crc32: PUInt32
-						 ): TEFIStatus; cdecl;
+						 ): TEFIStatus; MS_ABI_CDecl;
 
 	TEFICopyMem = procedure(
 					  Destination: Pointer;
 					  Source: Pointer;
 					  Length: TUINTN
-				  ); cdecl;
+				  ); MS_ABI_CDecl;
 
 	TEFISetMem = procedure(
 					 Buffer: Pointer;
 					 Size: TUINTN;
 					 Value: UInt8
-				  ); cdecl;
+				  ); MS_ABI_CDecl;
 
 	TEFICreateEventEx = function(
 							_Type: UInt32;
@@ -468,11 +468,11 @@ type
 							NotifyContext: Pointer;
 							EventGroup: PEFIGuid;
 							Event: PEFIEvent
-					  ): TEFIStatus; cdecl;
+					  ): TEFIStatus; MS_ABI_CDecl;
 
 	{ records }
 
-	TEFITableHeader = packed record
+	TEFITableHeader = record
 		Signature	: UInt64;
 		Revision	: UInt32;
 		HeaderSize	: UInt32;
@@ -480,32 +480,32 @@ type
 		Reserved	: UInt32;
 	end;
 
-	TEFICapsuleHeader = packed record
+	TEFICapsuleHeader = record
 		CapsuleGuid		 : TEFIGuid;
 		HeaderSize		 : UInt32;
 		Flags			 : UInt32;
 		CapsuleImageSize : UInt32;
 	end;
 
-	TEFIConfigurationTable = packed record
+	TEFIConfigurationTable = record
 		VendorGuid	: TEFIGuid;
 		VendorTable	: Pointer;
 	end;
 
-	TEFIOpenProtocolInformationEntry = packed record
+	TEFIOpenProtocolInformationEntry = record
 		AgentHandle		 : TEFIHandle;
 		ControllerHandle : TEFIHandle;
 		Attributes		 : UInt32;
 		OpenCount		 : UInt32;
 	end;
 
-	TEFIDevicePathProtocol = packed record
+	TEFIDevicePathProtocol = record
 		_Type	: UInt8;
 		SubType	: UInt8;
 		Length	: array [0..1] of UInt8;
 	end;
 
-	TEFIMemoryDescriptor = packed record
+	TEFIMemoryDescriptor = record
 		_Type			: UInt32;
 		PhysicalStart	: TEFIPhysicalAddress;
 		VirtualStart	: TEFIVirtualAddress;
@@ -513,7 +513,7 @@ type
 		Attribute		: UInt64;
 	end;
 
-	TEFITime = packed record
+	TEFITime = record
 		Year		: UInt16; { 1900 – 9999 }
 		Month		: UInt8;  { 1 – 12 }
 		Day			: UInt8;  { 1 – 31 }
@@ -527,24 +527,24 @@ type
 		Pad2		: UInt8;
 	end;
 
-	TEFITimeCapabilities = packed record
+	TEFITimeCapabilities = record
 		Resolution	: UInt32;
 		Accuracy	: UInt32;
 		SetsToZero	: TBoolean;
 	end;
 
-	TEFISimpleTextInputProtocol = packed record
+	TEFISimpleTextInputProtocol = record
 		Reset			: TEFIInputReset;
 		ReadKeyStroke	: TEFIInputReadKey;
 		WaitForKey		: TEFIEvent;
 	end;
 
-	TEFIInputKey = packed record
+	TEFIInputKey = record
 		ScanCode	: UInt16;
 		UnicodeChar	: Char16;
 	end;
 
-	TSimpleTextOutputMode = packed record
+	TSimpleTextOutputMode = record
 		MaxMode			: Int32;
 		{ current settings }
 		Mode			: Int32;
@@ -556,7 +556,7 @@ type
 
 	PSimpleTextOutputMode = ^TSimpleTextOutputMode;
 
-	TEFISimpleTextOutputProtocol = packed record
+	TEFISimpleTextOutputProtocol = record
 		Reset				: TEFITextReset;
 		OutputString		: TEFITextString;
 		TestString			: TEFITextTestString;
@@ -569,7 +569,7 @@ type
 		Mode				: PSimpleTextOutputMode;
 	end;
 
-	TEFIRuntimeServices = packed record
+	TEFIRuntimeServices = record
 		Hdr							: TEFITableHeader;
 		{ Time Services }
 		GetTime						: TEFIGetTime;
@@ -593,7 +593,7 @@ type
 		QueryVariableInfo			: TEFIQueryVariableInfo;
 	end;
 
-	TEFIBootServices = packed record
+	TEFIBootServices = record
 		Hdr									: TEFITableHeader;
 		{ Task Priority Services }
 		RaiseTPL							: TEFIRaiseTpl;
@@ -654,7 +654,7 @@ type
 		CreateEventEx						: TEFICreateEventEx;
 	end;
 
-	TEFISystemTable = packed record
+	TEFISystemTable = record
 		Hdr					 : TEFITableHeader;
 		FirmwareVendor		 : PChar16;
 		FirmwareRevision	 : UInt32;
