@@ -1,6 +1,11 @@
-CC = gcc
-CFLAGS = -Ignu-efi/inc -fpic -ffreestanding -fno-stack-protector \
-		 -fno-stack-check -fshort-wchar -mno-red-zone -maccumulate-outgoing-args
+OFILES = src/entry.o
+
+###################
+# { Tool Config } #
+###################
+
+AS = nasm
+ASFLAGS = -f elf64
 
 OBJCOPY = objcopy
 OBJCOPYFLAGS = -j .text -j .sdata -j .data -j .rodata -j .dynamic -j .dynsym \
@@ -14,12 +19,20 @@ LDFLAGS = -shared -Bsymbolic -Lgnu-efi/x86_64/lib -Lgnu-efi/x86_64/gnuefi \
 PPC = fpc
 PFLAGS = -Aelf -n -O3 -Op3 -Si -Sc -Sg -Xd -CX -XXs -Px86_64 -Rintel -Tlinux -Cg
 
+#############
+# { Rules } #
+#############
+
 main.efi: main.so
 	objcopy $(OBJCOPYFLAGS) main.so main.efi
 
-main.so: kernel_main.o
-	$(LD) $(LDFLAGS) gnu-efi/x86_64/gnuefi/crt0-efi-x86_64.o src/*.o -o main.so
+main.so: $(OFILES) src/kernel_main.o
+	$(LD) $(LDFLAGS) src/*.o -o main.so
 
-.PHONY: kernel_main.o
-kernel_main.o:
+src/%.o: src/%.asm
+	$(AS) $(ASFLAGS) $< -o $@
+
+# freepascal builds incrementally by itself
+.PHONY: src/kernel_main.o
+src/kernel_main.o:
 	$(PPC) src/kernel_main.pas $(PFLAGS)
