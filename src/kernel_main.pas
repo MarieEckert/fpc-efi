@@ -5,13 +5,60 @@ interface
 
 implementation
 
-uses efilib;
+uses elf, efilib;
 
-function efi_main(ImageHandle: TEfiHandle; SystemTable: PEfiSystemTable):
-	TEfiStatus; cdecl; [public, alias: 'efi_main'];
+{ position independent x86_64 elf so relocator }
+function _relocate(
+			ldbase: Int64;
+			dyn: PElf64Dyn;
+			image: TEFIHandle;
+			systab: PEfiSystemTable
+		): TEfiStatus; cdecl; [public, alias: '_relocate'];
+var
+	i				: Integer;
+	rel				: PElf64Rel;
+	addr			: PUInt64;
+	relsz, relent	: Int64;
 begin
-	InitializeLib(ImageHandle, SystemTable);
-	Print('Test %s'#13#10, PWideChar('test'));
+	relsz := 0;
+	relent := 0;
+	rel := Nil;
+
+	while dyn^.d_tag <> DT_NULL do
+	begin
+		case dyn^.d_tag of
+		DT_RELA: rel := PElf64Rel(dyn^.d_ptr + ldbase);
+		DT_RELASZ: relsz := dyn^.d_val;
+		DT_RELAENT: relent := dyn^.d_val;
+		end;
+		inc(dyn);
+	end;
+
+	if (rel = Nil) and (relent = 0) then
+		exit(EFI_SUCCESS);
+
+	if (rel = Nil) or (relent = 0) then
+		exit(EFI_LOAD_ERROR);
+
+	while relsz > 0 do
+	begin
+		case rel^.r_info and $ffffffff of
+		R_X86_64_RELATIVE: begin
+			addr := PUInt64(ldbase + rel^.r_offset);
+			addr^ := addr^ + ldbase;
+		end;
+		end;
+
+		rel := PElf64Rel(PChar(rel) + relent);
+		relsz := relsz - relent;
+	end;
+
+	exit(EFI_SUCCESS);
+end;
+
+function _entry(ImageHandle: TEfiHandle; SystemTable: PEfiSystemTable):
+	TEfiStatus; cdecl; [public, alias: '_entry'];
+begin
 	exit(EFI_SUCCESS);
 end;
 
