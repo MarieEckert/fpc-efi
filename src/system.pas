@@ -104,6 +104,13 @@ type
 
 { --- End of nessesary part --- }
 
+	{ heap related types }
+
+	TMemoryPool = record
+		Size	: UInt64;
+		Buffer	: Pointer;
+	end;
+
 const
 	fpc_in_round_real	= 121;
 	fpc_in_int_real		= 123;
@@ -111,6 +118,16 @@ const
 function Round(d : Double) : Integer; [internproc:fpc_in_round_real];
 function Int(d : Double) : Integer; [internproc:fpc_in_int_real];
 
+procedure SetSystemMemoryPool(pool: TMemoryPool);
+
 implementation
+
+var
+	SystemMemoryPool: TMemoryPool;
+
+procedure SetSystemMemoryPool(pool: TMemoryPool);
+begin
+	SystemMemoryPool := pool;
+end;
 
 end.

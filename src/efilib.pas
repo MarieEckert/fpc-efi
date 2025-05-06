@@ -57,6 +57,112 @@ procedure Print(fmt: PChar16);
 	cdecl; varargs; external 'c' name 'Print';
 {$endif}
 
+type
+	TEfiLibError		= (eleOK, eleNoSystemTable, eleEfiCallFailure);
+	TEfiLibErrorDetail	= UInt64;
+
+	TMemoryPoolResult = record
+		Status	: TEfiLibError;
+		Detail	: TEfiLibErrorDetail;
+		Pool	: TMemoryPool;
+	end;
+
+procedure Print(constref msg: PWideChar);
+
+procedure PrintErrorStr(err: TEfiLibError);
+
+procedure PrintHex(_int: UInt64);
+
+procedure PrintError(constref msg: PWideChar; err: TEfiLibError; detail: UInt64);
+
+function AllocateMemoryPool(const PoolSize: TUINTN): TMemoryPoolResult;
+
+var
+	SystemTable	: PEfiSystemTable	= Nil;
+	ImageHandle	: TEfiHandle		= Nil;
+
 implementation
+
+procedure Print(constref msg: PWideChar);
+begin
+	SystemTable^.ConOut^.OutputString(SystemTable^.ConOut, msg);
+end;
+
+procedure PrintErrorStr(err: TEfiLibError);
+begin
+	case err of
+	eleOK: Print('eleOK');
+	eleNoSystemTable: Print('eleNoSystemTable');
+	eleEfiCallFailure: Print('eleEfiCallFailure');
+	else Print('unknownError');
+	end;
+end;
+
+procedure PrintHex(_int: UInt64);
+const
+	MAX_DIGITS = 32;
+	DIGITS: array of WideChar = ('0','1','2','3','4','5','6','7','8','9','A','B','C',
+								 'D','E','F');
+var
+	wix, ix: Integer;
+	b: UInt8;
+	c: array [0..1] of WideChar;
+	_str: array [0..MAX_DIGITS] of WideChar;
+begin
+	c[0] := '$';
+	c[1] := WideChar($0000);
+
+	wix := High(_str);
+	_str[wix] := WideChar($0000);
+	Dec(wix);
+
+	Print(@c[0]);
+
+	repeat
+		_str[wix] := DIGITS[_int mod 16];
+		_int := _int div 16;
+		Inc(ix);
+		Dec(wix);
+	until (_int = 0) or (ix >= MAX_DIGITS);
+
+	Print(PWideChar(_str) + wix);
+end;
+
+procedure PrintError(constref msg: PWideChar; err: TEfiLibError; detail: UInt64);
+begin
+	Print(msg);
+	PrintErrorStr(err);
+	Print(' ');
+	PrintHex(detail);
+	Print(''#13#10);
+end;
+
+function AllocateMemoryPool(const PoolSize: TUINTN): TMemoryPoolResult;
+var
+	pool: TMemoryPool;
+begin
+	if SystemTable = Nil then
+	begin
+		AllocateMemoryPool.Status := eleNoSystemTable;
+		exit;
+	end;
+
+	AllocateMemoryPool.Detail :=
+		SystemTable^.BootServices^.AllocatePool(
+			EfiLoaderData,
+			PoolSize,
+			@pool.Buffer
+		);
+
+	if AllocateMemoryPool.Detail <> EFI_SUCCESS then
+	begin
+		AllocateMemoryPool.Status := eleEfiCallFailure;
+		exit;
+	end;
+
+	pool.Size := PoolSize;
+	AllocateMemoryPool.Pool := pool;
+	AllocateMemoryPool.Status := eleOK;
+end;
 
 end.
