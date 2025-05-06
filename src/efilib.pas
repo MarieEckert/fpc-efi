@@ -112,11 +112,13 @@ begin
 	c[0] := '$';
 	c[1] := WideChar($0000);
 
+	Print(@c[0]);
+
 	wix := High(_str);
 	_str[wix] := WideChar($0000);
 	Dec(wix);
 
-	Print(@c[0]);
+	ix := 0;
 
 	repeat
 		_str[wix] := DIGITS[_int mod 16];
