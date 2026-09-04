@@ -10,7 +10,7 @@ ASFLAGS = -f elf64
 OBJCOPY = objcopy
 OBJCOPYFLAGS = -j .text -j .sdata -j .data -j .rodata -j .dynamic -j .dynsym \
 			   -j .rel -j .rela -j .rel.* -j .rela.* -j .reloc \
-			   --target efi-app-x86_64 --subsystem=10
+			   --output-target efi-app-x86_64 --subsystem=10
 
 LD = ld
 LDFLAGS = -shared -Bsymbolic -Lgnu-efi/x86_64/lib -Lgnu-efi/x86_64/gnuefi \

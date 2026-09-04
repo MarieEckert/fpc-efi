@@ -25,7 +25,7 @@ type
 		r_offset	: TElf64Addr;
 		r_info		: TElf64XWord;
 	end;
-{$pakcrecords default}
+{$packrecords default}
 
 	PElf64Dyn = ^TElf64Dyn;
 	PElf64Rel = ^TElf64Rel;
